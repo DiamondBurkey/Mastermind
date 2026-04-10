@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mastermind">
+  <meta name="description" content="Classic Mastermind code-breaking game">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCI+CgogIDwhLS0gRGFyayBncmVlbiBiYWNrZ3JvdW5kIC0tPgogIDxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiBmaWxsPSIjMWEzYTJhIi8+CgogIDwhLS0gTUFTVEVSIC0gY2VudHJlZCAtLT4KICA8dGV4dAogICAgeD0iOTAiCiAgICB5PSI2OCIKICAgIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iJ0FyaWFsIEJsYWNrJywgJ0hlbHZldGljYSBOZXVlJywgQXJpYWwsIHNhbnMtc2VyaWYiCiAgICBmb250LXdlaWdodD0iOTAwIgogICAgZm9udC1zaXplPSIzOCIKICAgIGZpbGw9IiNmNWYwZTgiCiAgPk1BU1RFUjwvdGV4dD4KCiAgPCEtLSBNSU5EIC0gY2VudHJlZCAtLT4KICA8dGV4dAogICAgeD0iOTAiCiAgICB5PSIxMTIiCiAgICB0ZXh0LWFuY2hvcj0ibWlkZGxlIgogICAgZm9udC1mYW1pbHk9IidBcmlhbCBCbGFjaycsICdIZWx2ZXRpY2EgTmV1ZScsIEFyaWFsLCBzYW5zLXNlcmlmIgogICAgZm9udC13ZWlnaHQ9IjkwMCIKICAgIGZvbnQtc2l6ZT0iMzgiCiAgICBmaWxsPSIjZjVmMGU4IgogID5NSU5EPC90ZXh0PgoKICA8IS0tIDYgY29sb3VyIHBlZ3MgLS0+CiAgPGNpcmNsZSBjeD0iMTgiICBjeT0iMTU1IiByPSI5IiBmaWxsPSIjZmY0NzU3Ii8+CiAgPGVsbGlwc2UgY3g9IjE0IiBjeT0iMTUxIiByeD0iMyIgcnk9IjEuOCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgMTQgMTUxKSIvPgoKICA8Y2lyY2xlIGN4PSI0NiIgIGN5PSIxNTUiIHI9IjkiIGZpbGw9IiNmZmE1MDIiLz4KICA8ZWxsaXBzZSBjeD0iNDIiIGN5PSIxNTEiIHJ4PSIzIiByeT0iMS44IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMykiIHRyYW5zZm9ybT0icm90YXRlKC0zMCA0MiAxNTEpIi8+CgogIDxjaXJjbGUgY3g9Ijc0IiAgY3k9IjE1NSIgcj0iOSIgZmlsbD0iI2ZmZGQ1OSIvPgogIDxlbGxpcHNlIGN4PSI3MCIgY3k9IjE1MSIgcng9IjMiIHJ5PSIxLjgiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTMwIDcwIDE1MSkiLz4KCiAgPGNpcmNsZSBjeD0iMTAyIiBjeT0iMTU1IiByPSI5IiBmaWxsPSIjMmVkNTczIi8+CiAgPGVsbGlwc2UgY3g9Ijk4IiBjeT0iMTUxIiByeD0iMyIgcnk9IjEuOCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgOTggMTUxKSIvPgoKICA8Y2lyY2xlIGN4PSIxMzAiIGN5PSIxNTUiIHI9IjkiIGZpbGw9IiMxZTkwZmYiLz4KICA8ZWxsaXBzZSBjeD0iMTI2IiBjeT0iMTUxIiByeD0iMyIgcnk9IjEuOCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgMTI2IDE1MSkiLz4KCiAgPGNpcmNsZSBjeD0iMTU4IiBjeT0iMTU1IiByPSI5IiBmaWxsPSIjYTU1ZWVhIi8+CiAgPGVsbGlwc2UgY3g9IjE1NCIgY3k9IjE1MSIgcng9IjMiIHJ5PSIxLjgiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTMwIDE1NCAxNTEpIi8+Cgo8L3N2Zz4K">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCI+CgogIDwhLS0gRGFyayBncmVlbiBiYWNrZ3JvdW5kIC0tPgogIDxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiBmaWxsPSIjMWEzYTJhIi8+CgogIDwhLS0gTUFTVEVSIC0gY2VudHJlZCAtLT4KICA8dGV4dAogICAgeD0iOTAiCiAgICB5PSI2OCIKICAgIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICBmb250LWZhbWlseT0iJ0FyaWFsIEJsYWNrJywgJ0hlbHZldGljYSBOZXVlJywgQXJpYWwsIHNhbnMtc2VyaWYiCiAgICBmb250LXdlaWdodD0iOTAwIgogICAgZm9udC1zaXplPSIzOCIKICAgIGZpbGw9IiNmNWYwZTgiCiAgPk1BU1RFUjwvdGV4dD4KCiAgPCEtLSBNSU5EIC0gY2VudHJlZCAtLT4KICA8dGV4dAogICAgeD0iOTAiCiAgICB5PSIxMTIiCiAgICB0ZXh0LWFuY2hvcj0ibWlkZGxlIgogICAgZm9udC1mYW1pbHk9IidBcmlhbCBCbGFjaycsICdIZWx2ZXRpY2EgTmV1ZScsIEFyaWFsLCBzYW5zLXNlcmlmIgogICAgZm9udC13ZWlnaHQ9IjkwMCIKICAgIGZvbnQtc2l6ZT0iMzgiCiAgICBmaWxsPSIjZjVmMGU4IgogID5NSU5EPC90ZXh0PgoKICA8IS0tIDYgY29sb3VyIHBlZ3MgLS0+CiAgPGNpcmNsZSBjeD0iMTgiICBjeT0iMTU1IiByPSI5IiBmaWxsPSIjZmY0NzU3Ii8+CiAgPGVsbGlwc2UgY3g9IjE0IiBjeT0iMTUxIiByeD0iMyIgcnk9IjEuOCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgMTQgMTUxKSIvPgoKICA8Y2lyY2xlIGN4PSI0NiIgIGN5PSIxNTUiIHI9IjkiIGZpbGw9IiNmZmE1MDIiLz4KICA8ZWxsaXBzZSBjeD0iNDIiIGN5PSIxNTEiIHJ4PSIzIiByeT0iMS44IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMykiIHRyYW5zZm9ybT0icm90YXRlKC0zMCA0MiAxNTEpIi8+CgogIDxjaXJjbGUgY3g9Ijc0IiAgY3k9IjE1NSIgcj0iOSIgZmlsbD0iI2ZmZGQ1OSIvPgogIDxlbGxpcHNlIGN4PSI3MCIgY3k9IjE1MSIgcng9IjMiIHJ5PSIxLjgiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTMwIDcwIDE1MSkiLz4KCiAgPGNpcmNsZSBjeD0iMTAyIiBjeT0iMTU1IiByPSI5IiBmaWxsPSIjMmVkNTczIi8+CiAgPGVsbGlwc2UgY3g9Ijk4IiBjeT0iMTUxIiByeD0iMyIgcnk9IjEuOCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgOTggMTUxKSIvPgoKICA8Y2lyY2xlIGN4PSIxMzAiIGN5PSIxNTUiIHI9IjkiIGZpbGw9IiMxZTkwZmYiLz4KICA8ZWxsaXBzZSBjeD0iMTI2IiBjeT0iMTUxIiByeD0iMyIgcnk9IjEuOCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgMTI2IDE1MSkiLz4KCiAgPGNpcmNsZSBjeD0iMTU4IiBjeT0iMTU1IiByPSI5IiBmaWxsPSIjYTU1ZWVhIi8+CiAgPGVsbGlwc2UgY3g9IjE1NCIgY3k9IjE1MSIgcng9IjMiIHJ5PSIxLjgiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTMwIDE1NCAxNTEpIi8+Cgo8L3N2Zz4K">
+  <title>MASTERMIND</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c28;
+      --border: #2a2a3d;
+      --text: #e8e8f0;
+      --text-dim: #6b6b8a;
+      --accent: #c8ff00;
+      --accent-dim: #8ab000;
+      --c1: #ff4757;
+      --c2: #ffa502;
+      --c3: #ffdd59;
+      --c4: #2ed573;
+      --c5: #1e90ff;
+      --c6: #a55eea;
+      --peg-size: 38px;
+      --fb-size: 13px;
+      --fb-easy-size: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200,255,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,255,0,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px 20px 0;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 10vw, 64px);
+      letter-spacing: 8px;
+      color: var(--accent);
+      text-shadow: 0 0 40px rgba(200,255,0,0.3);
+      line-height: 1;
+    }
+
+    .subtitle {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── Mode switcher ───────────────────────────────────────────────── */
+    .mode-switcher {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 4px;
+      margin: 14px 16px 0;
+      width: calc(100% - 32px);
+      max-width: 388px;
+    }
+
+    .mode-btn {
+      flex: 1;
+      padding: 9px 0;
+      border-radius: 50px;
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .mode-btn.active {
+      background: var(--surface2);
+      color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+
+    /* ── Game container ──────────────────────────────────────────────── */
+    .game-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      padding: 12px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ── Board ───────────────────────────────────────────────────────── */
+    .board {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 6px;
+    }
+
+    /* ── Classic row ─────────────────────────────────────────────────── */
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+
+    .row.active-row {
+      background: var(--surface2);
+      box-shadow: inset 0 0 0 1px var(--accent), 0 0 20px rgba(200,255,0,0.05);
+    }
+
+    .row-number {
+      font-size: 10px;
+      color: var(--text-dim);
+      width: 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .pegs {
+      display: flex;
+      gap: 7px;
+      flex: 1;
+    }
+
+    /* ── Easy row: peg column + feedback dot underneath ─────────────── */
+    .row.easy-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 6px 8px 8px;
+    }
+
+    .easy-row-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* feedback dots sit directly under each peg column */
+    .easy-fb-row {
+      display: flex;
+      gap: 7px;
+      padding-left: 24px; /* aligns with pegs (row-number 16px + gap 8px) */
+      margin-top: 5px;
+    }
+
+    .easy-fb-cell {
+      width: var(--peg-size);
+      display: flex;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .easy-fb-dot {
+      width: var(--fb-easy-size);
+      height: var(--fb-easy-size);
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    /* green  = right colour + right position */
+    .easy-fb-dot.hit   { background: #2ed573; border-color: #2ed573; box-shadow: 0 0 7px rgba(46,213,115,0.6); }
+    /* amber  = right colour, wrong position  */
+    .easy-fb-dot.close { background: #ffa502; border-color: #ffa502; box-shadow: 0 0 7px rgba(255,165,2,0.6); }
+    /* red    = colour not in secret at all   */
+    .easy-fb-dot.miss  { background: #ff4757; border-color: #ff4757; box-shadow: 0 0 7px rgba(255,71,87,0.5); }
+
+    /* ── Shared peg styles ───────────────────────────────────────────── */
+    .peg {
+      width: var(--peg-size);
+      height: var(--peg-size);
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--surface2);
+      cursor: default;
+      transition: transform 0.1s, box-shadow 0.2s;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .peg::after {
+      content: '';
+      position: absolute;
+      top: 20%; left: 25%;
+      width: 30%; height: 20%;
+      background: rgba(255,255,255,0.25);
+      border-radius: 50%;
+      transform: rotate(-30deg);
+    }
+
+    .peg[data-color="1"] { background: var(--c1); border-color: var(--c1); box-shadow: 0 0 12px rgba(255,71,87,0.5); }
+    .peg[data-color="2"] { background: var(--c2); border-color: var(--c2); box-shadow: 0 0 12px rgba(255,165,2,0.5); }
+    .peg[data-color="3"] { background: var(--c3); border-color: var(--c3); box-shadow: 0 0 12px rgba(255,221,89,0.5); }
+    .peg[data-color="4"] { background: var(--c4); border-color: var(--c4); box-shadow: 0 0 12px rgba(46,213,115,0.5); }
+    .peg[data-color="5"] { background: var(--c5); border-color: var(--c5); box-shadow: 0 0 12px rgba(30,144,255,0.5); }
+    .peg[data-color="6"] { background: var(--c6); border-color: var(--c6); box-shadow: 0 0 12px rgba(165,94,234,0.5); }
+
+    .active-row .peg.empty { border-style: dashed; cursor: pointer; }
+    .active-row .peg:not(.empty):hover { transform: scale(1.08); cursor: pointer; }
+
+    /* ── Classic 2×2 feedback grid ───────────────────────────────────── */
+    .feedback {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 4px;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .fb-peg {
+      width: var(--fb-size);
+      height: var(--fb-size);
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+
+    .fb-peg.black { background: #2ed573; border-color: #2ed573; box-shadow: 0 0 6px rgba(46,213,115,0.5); }
+    .fb-peg.white { background: #ffa502; border-color: #ffa502; box-shadow: 0 0 6px rgba(255,165,2,0.5); }
+
+    /* ── Palette ─────────────────────────────────────────────────────── */
+    .palette-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .palette-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .palette { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+
+    .palette-peg {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      position: relative;
+    }
+
+    .palette-peg::after {
+      content: '';
+      position: absolute;
+      top: 18%; left: 22%;
+      width: 30%; height: 20%;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transform: rotate(-30deg);
+    }
+
+    .palette-peg:hover { transform: scale(1.12); }
+    .palette-peg.selected { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), 0 0 20px rgba(200,255,0,0.3); transform: scale(1.08); }
+
+    .palette-peg[data-color="1"] { background: var(--c1); box-shadow: 0 4px 12px rgba(255,71,87,0.4); }
+    .palette-peg[data-color="2"] { background: var(--c2); box-shadow: 0 4px 12px rgba(255,165,2,0.4); }
+    .palette-peg[data-color="3"] { background: var(--c3); box-shadow: 0 4px 12px rgba(255,221,89,0.4); }
+    .palette-peg[data-color="4"] { background: var(--c4); box-shadow: 0 4px 12px rgba(46,213,115,0.4); }
+    .palette-peg[data-color="5"] { background: var(--c5); box-shadow: 0 4px 12px rgba(30,144,255,0.4); }
+    .palette-peg[data-color="6"] { background: var(--c6); box-shadow: 0 4px 12px rgba(165,94,234,0.4); }
+
+    /* ── Controls ────────────────────────────────────────────────────── */
+    .controls { display: flex; gap: 8px; }
+
+    .btn {
+      flex: 1; padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+
+    .btn:hover { background: var(--surface2); border-color: var(--text-dim); }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; }
+    .btn-primary:hover { background: #d4ff33; border-color: #d4ff33; }
+    .btn-primary:disabled { background: var(--accent-dim); color: #333; cursor: not-allowed; opacity: 0.5; }
+    .btn-clear { flex: 0 0 auto; padding: 14px 18px; }
+
+    /* ── Status ──────────────────────────────────────────────────────── */
+    .status {
+      text-align: center;
+      font-size: 11px; letter-spacing: 2px;
+      color: var(--text-dim);
+      padding: 4px;
+    }
+
+    /* ── Legend ──────────────────────────────────────────────────────── */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 9px; letter-spacing: 1px;
+      color: var(--text-dim);
+      padding: 0 4px;
+    }
+
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .legend-dot.green { background: #2ed573; box-shadow: 0 0 5px rgba(46,213,115,0.5); }
+    .legend-dot.amber { background: #ffa502; box-shadow: 0 0 5px rgba(255,165,2,0.5); }
+    .legend-dot.red   { background: #ff4757; box-shadow: 0 0 5px rgba(255,71,87,0.4); }
+
+    /* ── End overlay ─────────────────────────────────────────────────── */
+    .overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 100;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .overlay.show { display: flex; }
+
+    .overlay-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 320px; width: 90%;
+      text-align: center;
+      animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .overlay-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px; letter-spacing: 6px;
+      margin-bottom: 8px;
+    }
+
+    .overlay-title.win  { color: var(--accent); text-shadow: 0 0 30px rgba(200,255,0,0.5); }
+    .overlay-title.lose { color: var(--c1);     text-shadow: 0 0 30px rgba(255,71,87,0.5); }
+
+    .overlay-sub {
+      font-size: 11px; letter-spacing: 2px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    .secret-reveal {
+      display: flex; justify-content: center;
+      gap: 8px; margin: 16px 0 24px;
+    }
+
+    .secret-peg {
+      width: 44px; height: 44px;
+      border-radius: 50%; position: relative;
+    }
+
+    .secret-peg::after {
+      content: '';
+      position: absolute;
+      top: 18%; left: 22%;
+      width: 30%; height: 20%;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transform: rotate(-30deg);
+    }
+
+    .secret-peg[data-color="1"] { background: var(--c1); box-shadow: 0 0 16px rgba(255,71,87,0.6); }
+    .secret-peg[data-color="2"] { background: var(--c2); box-shadow: 0 0 16px rgba(255,165,2,0.6); }
+    .secret-peg[data-color="3"] { background: var(--c3); box-shadow: 0 0 16px rgba(255,221,89,0.6); }
+    .secret-peg[data-color="4"] { background: var(--c4); box-shadow: 0 0 16px rgba(46,213,115,0.6); }
+    .secret-peg[data-color="5"] { background: var(--c5); box-shadow: 0 0 16px rgba(30,144,255,0.6); }
+    .secret-peg[data-color="6"] { background: var(--c6); box-shadow: 0 0 16px rgba(165,94,234,0.6); }
+
+    /* ── Install banner ──────────────────────────────────────────────── */
+    #install-btn {
+      display: none;
+      position: fixed; bottom: 20px;
+      left: 50%; transform: translateX(-50%);
+      z-index: 50;
+      padding: 12px 24px;
+      border-radius: 50px;
+      background: var(--accent); color: #000;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 2px; font-weight: 700;
+      border: none; cursor: pointer;
+      box-shadow: 0 8px 32px rgba(200,255,0,0.3);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 400px) {
+      :root { --peg-size: 32px; --fb-size: 11px; --fb-easy-size: 12px; }
+      .palette-peg { width: 38px; height: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>MASTERMIND</h1>
+  <p class="subtitle">Break the code</p>
+</header>
+
+<div class="mode-switcher">
+  <button class="mode-btn active" id="btn-classic" onclick="setMode('classic')">⬛ Classic</button>
+  <button class="mode-btn"        id="btn-easy"    onclick="setMode('easy')">🟢 Easy</button>
+</div>
+
+<div class="game-container">
+  <div class="legend" id="legend"></div>
+  <div class="board"  id="board"></div>
+  <div class="status" id="status">CHOOSE A COLOR, THEN PLACE YOUR PEGS</div>
+
+  <div class="palette-section">
+    <div class="palette-label">Select color</div>
+    <div class="palette" id="palette"></div>
+  </div>
+
+  <div class="controls">
+    <button class="btn btn-clear" onclick="clearRow()">⌫ Clear</button>
+    <button class="btn btn-primary" id="guess-btn" onclick="submitGuess()" disabled>Check →</button>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="overlay-card">
+    <div class="overlay-title" id="overlay-title"></div>
+    <div class="overlay-sub"   id="overlay-sub"></div>
+    <div class="secret-reveal" id="secret-reveal"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="newGame()">PLAY AGAIN</button>
+  </div>
+</div>
+
+<button id="install-btn">⬇ Install App</button>
+
+<script>
+  // ── Inline Service Worker (Blob URL — works on GitHub Pages) ──────────────
+  const SW_SCRIPT = `
+    const CACHE = 'mastermind-v2';
+    self.addEventListener('install', e => {
+      e.waitUntil(caches.open(CACHE).then(c => c.add(self.location.href)).then(() => self.skipWaiting()));
+    });
+    self.addEventListener('activate', e => {
+      e.waitUntil(
+        caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+          .then(() => self.clients.claim())
+      );
+    });
+    self.addEventListener('fetch', e => {
+      e.respondWith(
+        caches.match(e.request).then(cached => cached || fetch(e.request).then(res => {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy));
+          return res;
+        }))
+      );
+    });
+  `;
+
+  if ('serviceWorker' in navigator) {
+    const blob = new Blob([SW_SCRIPT], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  }
+
+  // ── Inline Manifest ───────────────────────────────────────────────────────
+  const MANIFEST = {
+    name: 'MASTERMIND', short_name: 'Mastermind',
+    description: 'Classic code-breaking Mastermind game',
+    start_url: location.href, display: 'standalone',
+    background_color: '#0a0a0f', theme_color: '#0a0a0f', orientation: 'portrait',
+    icons: [{
+      src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%230a0a0f'/%3E%3Ccircle cx='256' cy='200' r='100' fill='%23ff4757'/%3E%3Ccircle cx='220' cy='165' r='30' fill='rgba(255,255,255,0.25)'/%3E%3Ccircle cx='130' cy='370' r='55' fill='%232ed573'/%3E%3Ccircle cx='256' cy='370' r='55' fill='%231e90ff'/%3E%3Ccircle cx='382' cy='370' r='55' fill='%23a55eea'/%3E%3C/svg%3E",
+      sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable'
+    }]
+  };
+  const mBlob = new Blob([JSON.stringify(MANIFEST)], { type: 'application/manifest+json' });
+  const mLink = document.createElement('link');
+  mLink.rel = 'manifest'; mLink.href = URL.createObjectURL(mBlob);
+  document.head.appendChild(mLink);
+
+  // ── Game state ────────────────────────────────────────────────────────────
+  const COLORS = 6, PEGS = 4, MAX_ROWS = 10;
+  let secret = [], currentRow = 0, guesses = [];
+  let currentGuess = [], selectedColor = null, gameOver = false;
+  let mode = 'classic'; // 'classic' | 'easy'
+
+  // ── Mode switching ────────────────────────────────────────────────────────
+  function setMode(m) {
+    mode = m;
+    document.getElementById('btn-classic').classList.toggle('active', m === 'classic');
+    document.getElementById('btn-easy').classList.toggle('active', m === 'easy');
+    newGame();
+  }
+
+  // ── New game ──────────────────────────────────────────────────────────────
+  function newGame() {
+    secret = Array.from({ length: PEGS }, () => Math.floor(Math.random() * COLORS) + 1);
+    currentRow = 0; guesses = [];
+    currentGuess = Array(PEGS).fill(0);
+    selectedColor = null; gameOver = false;
+    document.getElementById('overlay').classList.remove('show');
+    renderLegend();
+    renderBoard();
+    renderPalette();
+    updateStatus('CHOOSE A COLOR, THEN PLACE YOUR PEGS');
+    updateGuessBtn();
+  }
+
+  // ── Legend ────────────────────────────────────────────────────────────────
+  function renderLegend() {
+    const el = document.getElementById('legend');
+    if (mode === 'classic') {
+      el.innerHTML = `
+        <div class="legend-item"><div class="legend-dot green"></div> Right colour + position</div>
+        <div class="legend-item"><div class="legend-dot amber"></div> Right colour, wrong position</div>`;
+    } else {
+      el.innerHTML = `
+        <div class="legend-item"><div class="legend-dot green"></div> Right colour + position</div>
+        <div class="legend-item"><div class="legend-dot amber"></div> Right colour, wrong position</div>
+        <div class="legend-item"><div class="legend-dot red"></div> Wrong colour</div>`;
+    }
+  }
+
+  // ── Board ─────────────────────────────────────────────────────────────────
+  function renderBoard() {
+    const board = document.getElementById('board');
+    board.innerHTML = '';
+    for (let r = 0; r < MAX_ROWS; r++) {
+      board.appendChild(mode === 'easy' ? buildEasyRow(r) : buildClassicRow(r));
+    }
+  }
+
+  // Classic: pegs on the left, 2×2 feedback grid on the right
+  function buildClassicRow(r) {
+    const row = document.createElement('div');
+    row.className = 'row' + (r === currentRow && !gameOver ? ' active-row' : '');
+
+    const num = document.createElement('div');
+    num.className = 'row-number';
+    num.textContent = r + 1;
+    row.appendChild(num);
+
+    const pegs = document.createElement('div');
+    pegs.className = 'pegs';
+    for (let p = 0; p < PEGS; p++) pegs.appendChild(buildPeg(r, p));
+    row.appendChild(pegs);
+
+    const fb = document.createElement('div');
+    fb.className = 'feedback';
+    if (r < currentRow && guesses[r]) {
+      const { blacks, whites } = guesses[r].feedback;
+      let dots = Array(blacks).fill('black').concat(Array(whites).fill('white'));
+      while (dots.length < PEGS) dots.push('');
+      dots.forEach(type => {
+        const dot = document.createElement('div');
+        dot.className = 'fb-peg' + (type ? ' ' + type : '');
+        fb.appendChild(dot);
+      });
+    } else {
+      for (let i = 0; i < PEGS; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'fb-peg';
+        fb.appendChild(dot);
+      }
+    }
+    row.appendChild(fb);
+    return row;
+  }
+
+  // Easy: pegs on top, one feedback dot per peg directly below it
+  function buildEasyRow(r) {
+    const row = document.createElement('div');
+    row.className = 'row easy-row' + (r === currentRow && !gameOver ? ' active-row' : '');
+
+    // Top half: row number + pegs
+    const top = document.createElement('div');
+    top.className = 'easy-row-top';
+
+    const num = document.createElement('div');
+    num.className = 'row-number';
+    num.textContent = r + 1;
+    top.appendChild(num);
+
+    const pegs = document.createElement('div');
+    pegs.className = 'pegs';
+    for (let p = 0; p < PEGS; p++) pegs.appendChild(buildPeg(r, p));
+    top.appendChild(pegs);
+    row.appendChild(top);
+
+    // Bottom half: one dot aligned under each peg
+    const fbRow = document.createElement('div');
+    fbRow.className = 'easy-fb-row';
+
+    for (let p = 0; p < PEGS; p++) {
+      const cell = document.createElement('div');
+      cell.className = 'easy-fb-cell';
+      const dot = document.createElement('div');
+      dot.className = 'easy-fb-dot';
+      if (r < currentRow && guesses[r]) {
+        dot.classList.add(guesses[r].easyFeedback[p]); // 'hit' | 'close' | 'miss'
+      }
+      cell.appendChild(dot);
+      fbRow.appendChild(cell);
+    }
+    row.appendChild(fbRow);
+    return row;
+  }
+
+  function buildPeg(r, p) {
+    const peg = document.createElement('div');
+    peg.className = 'peg';
+    let color = 0;
+    if (r < currentRow && guesses[r]) color = guesses[r].guess[p];
+    else if (r === currentRow && !gameOver) color = currentGuess[p];
+    if (color) peg.setAttribute('data-color', color);
+    else peg.classList.add('empty');
+    if (r === currentRow && !gameOver) peg.addEventListener('click', () => placePeg(p));
+    return peg;
+  }
+
+  // ── Palette ───────────────────────────────────────────────────────────────
+  function renderPalette() {
+    const palette = document.getElementById('palette');
+    palette.innerHTML = '';
+    for (let c = 1; c <= COLORS; c++) {
+      const peg = document.createElement('div');
+      peg.className = 'palette-peg' + (selectedColor === c ? ' selected' : '');
+      peg.setAttribute('data-color', c);
+      peg.addEventListener('click', () => selectColor(c));
+      palette.appendChild(peg);
+    }
+  }
+
+  function selectColor(c) { selectedColor = c; renderPalette(); }
+
+  // ── Place / clear ─────────────────────────────────────────────────────────
+  function placePeg(pos) {
+    if (gameOver || !selectedColor) { if (!selectedColor) updateStatus('← PICK A COLOR FIRST'); return; }
+    currentGuess[pos] = (currentGuess[pos] === selectedColor) ? 0 : selectedColor;
+    renderBoard(); updateGuessBtn(); updateStatus('');
+  }
+
+  function clearRow() {
+    currentGuess = Array(PEGS).fill(0);
+    renderBoard(); updateGuessBtn();
+  }
+
+  // ── Submit guess ──────────────────────────────────────────────────────────
+  function submitGuess() {
+    if (currentGuess.includes(0)) return;
+    const classicFb = evaluateClassic(currentGuess, secret);
+    const easyFb    = evaluateEasy(currentGuess, secret);
+    guesses.push({ guess: [...currentGuess], feedback: classicFb, easyFeedback: easyFb });
+    currentRow++;
+    currentGuess = Array(PEGS).fill(0);
+    renderBoard(); updateGuessBtn();
+    if (classicFb.blacks === PEGS) endGame(true);
+    else if (currentRow >= MAX_ROWS) endGame(false);
+    else updateStatus(`ROW ${currentRow} — ${MAX_ROWS - currentRow} ATTEMPTS LEFT`);
+  }
+
+  // Classic: count blacks (exact) and whites (right colour, wrong position)
+  function evaluateClassic(guess, code) {
+    let blacks = 0, whites = 0;
+    const codeCopy = [...code], guessCopy = [...guess];
+    for (let i = 0; i < PEGS; i++) {
+      if (guessCopy[i] === codeCopy[i]) { blacks++; codeCopy[i] = guessCopy[i] = -1; }
+    }
+    for (let i = 0; i < PEGS; i++) {
+      if (guessCopy[i] === -1) continue;
+      const j = codeCopy.indexOf(guessCopy[i]);
+      if (j !== -1) { whites++; codeCopy[j] = -1; }
+    }
+    return { blacks, whites };
+  }
+
+  // Easy: per-peg result
+  //   'hit'   → green  (right colour + right position)
+  //   'close' → amber  (right colour, wrong position)
+  //   'miss'  → red    (colour not in secret at all)
+  //
+  // Two-pass so colour counts are respected:
+  // Pass 1 — lock exact matches (hits), remove from pool.
+  // Pass 2 — for non-hits, award 'close' only if that colour still
+  //           exists in the remaining pool; consume it so a duplicate
+  //           guess doesn't also earn 'close'.
+  function evaluateEasy(guess, code) {
+    const result = Array(PEGS).fill('miss');
+    const pool   = [...code];
+
+    // Pass 1: hits
+    for (let i = 0; i < PEGS; i++) {
+      if (guess[i] === code[i]) {
+        result[i] = 'hit';
+        pool[i] = -1; // consumed
+      }
+    }
+
+    // Pass 2: close or miss
+    for (let i = 0; i < PEGS; i++) {
+      if (result[i] === 'hit') continue;
+      const j = pool.indexOf(guess[i]);
+      if (j !== -1) {
+        result[i] = 'close';
+        pool[j] = -1; // consume so it can't match again
+      }
+    }
+
+    return result;
+  }
+
+  // ── End game ──────────────────────────────────────────────────────────────
+  function endGame(won) {
+    gameOver = true;
+    const title  = document.getElementById('overlay-title');
+    const sub    = document.getElementById('overlay-sub');
+    const reveal = document.getElementById('secret-reveal');
+    title.textContent = won ? 'CRACKED!' : 'BUSTED';
+    title.className   = 'overlay-title ' + (won ? 'win' : 'lose');
+    sub.textContent   = won
+      ? `Solved in ${currentRow} ${currentRow === 1 ? 'guess' : 'guesses'}`
+      : 'The code was:';
+    reveal.innerHTML = '';
+    secret.forEach(c => {
+      const p = document.createElement('div');
+      p.className = 'secret-peg';
+      p.setAttribute('data-color', c);
+      reveal.appendChild(p);
+    });
+    document.getElementById('overlay').classList.add('show');
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function updateGuessBtn() {
+    document.getElementById('guess-btn').disabled = currentGuess.includes(0) || gameOver;
+  }
+  function updateStatus(msg) {
+    document.getElementById('status').textContent = msg;
+  }
+
+  // ── PWA Install prompt ────────────────────────────────────────────────────
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault(); deferredPrompt = e;
+    document.getElementById('install-btn').style.display = 'block';
+  });
+  document.getElementById('install-btn').addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') document.getElementById('install-btn').style.display = 'none';
+    deferredPrompt = null;
+  });
+
+  // ── Start ─────────────────────────────────────────────────────────────────
+  newGame();
+</script>
+</body>
+</html>
